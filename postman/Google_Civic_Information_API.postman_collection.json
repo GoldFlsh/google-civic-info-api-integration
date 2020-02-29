@@ -1,0 +1,517 @@
+{
+	"info": {
+		"_postman_id": "a76a5cdc-7a49-4cec-9d2a-f80388e47af9",
+		"name": "Google_Civic_Information_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "electionQuery",
+			"item": [
+				{
+					"name": "unauthorized",
+					"item": [
+						{
+							"name": "electionQuery - unAuthenticatedRequest",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "25b3a851-c1e8-434a-b544-7c7e478092a0",
+										"exec": [
+											"pm.test(\"Status code is 403\", function () {",
+											"    pm.response.to.have.status(403);",
+											"});",
+											"",
+											"pm.test(\"Content-Type header is application/json\", function() {",
+											"    pm.expect(pm.response.headers.get('content-type'))",
+											"        .to.eql('application/json; charset=UTF-8');",
+											"});",
+											"",
+											"const error = pm.response.json().error",
+											"",
+											"pm.test(\"Error Code is 403\", function() {",
+											"    pm.expect(error.code).to.eql(403)",
+											"});",
+											"",
+											"",
+											"pm.test(\"Error  reason is dailyLimitExceededUnreg\", function() {",
+											"   pm.expect(error.errors[0].reason).to.eql(\"dailyLimitExceededUnreg\") ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "https://www.googleapis.com/civicinfo/v2/elections",
+									"protocol": "https",
+									"host": [
+										"www",
+										"googleapis",
+										"com"
+									],
+									"path": [
+										"civicinfo",
+										"v2",
+										"elections"
+									]
+								},
+								"description": "Get a list of upcoming elections provided by https://www.votinginfoproject.org/"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "authorized",
+					"item": [
+						{
+							"name": "happy",
+							"item": [
+								{
+									"name": "Basic Happy Path",
+									"item": [
+										{
+											"name": "Basic Happy Path",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "25b3a851-c1e8-434a-b544-7c7e478092a0",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "https://www.googleapis.com/civicinfo/v2/elections",
+													"protocol": "https",
+													"host": [
+														"www",
+														"googleapis",
+														"com"
+													],
+													"path": [
+														"civicinfo",
+														"v2",
+														"elections"
+													]
+												},
+												"description": "Get a list of upcoming elections provided by https://www.votinginfoproject.org/"
+											},
+											"response": []
+										},
+										{
+											"name": "no Accept  Header works fine",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "25b3a851-c1e8-434a-b544-7c7e478092a0",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "https://www.googleapis.com/civicinfo/v2/elections",
+													"protocol": "https",
+													"host": [
+														"www",
+														"googleapis",
+														"com"
+													],
+													"path": [
+														"civicinfo",
+														"v2",
+														"elections"
+													]
+												},
+												"description": "Get a list of upcoming elections provided by https://www.votinginfoproject.org/"
+											},
+											"response": []
+										}
+									],
+									"description": "const response = pm.response.json()\n\npm.test(\"kind field contains expected API type info\", function() {\n   pm.expect(response.kind).to.eql(\"civicinfo#electionsQueryResponse\")\n});\n\nconst testElection = pm.response.json().elections[0];\n\npm.test(\"Test Election Data contains expected Id 2000\", function() {\n   pm.expect(testElection.id).to.eql(\"2000\")\n});\n\npm.test(\"Test Election Data contains expected Id 2000\", function() {\n   pm.expect(testElection.id).to.eql(\"2000\")\n});\n\npm.test(\"Test Election Data contains expected name 'VIP Test Election'\", function() {\n   pm.expect(testElection.name).to.eql(\"VIP Test Election\")\n});\n\n\npm.test(\"Test Election Data contains expected name 'VIP Test Election'\", function() {\n   pm.expect(testElection.name).to.eql(\"VIP Test Election\")\n});\n\n//Not testing for exact match as it's not clear if this could be updated in the future\n//testing for date format ensures it's some date but doesn't require manual updates to\n//fix a failing test if the date is updated in the database later.\npm.test(\"Test Election Data contains electionDay as date format\", function() {\n   pm.expect(testElection.electionDay).to.match(/^\\d{4}-\\d{2}-\\d{2}/)\n});\n\npm.test(\"Test ocdDivisionId is country:us\", function() {\n  pm.expect(testElection.ocdDivisionId).contains(\"country:us\")\n});",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "459bed59-1743-41d5-9746-f065a233f87f",
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "cd8551b9-da66-4af3-91e5-9e934a94fd11",
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "electionQuery - HappyPath APIKey Copy Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "25b3a851-c1e8-434a-b544-7c7e478092a0",
+												"exec": [
+													"",
+													"pm.test(\"Body only contains kind with expected result\", function() {",
+													"    pm.response.to.have.body('{\"kind\":\"civicinfo#electionsQueryResponse\"}')",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "a041eba5-ae4a-4faf-9755-b3d7b4766dd3",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://www.googleapis.com/civicinfo/v2/elections?fields=kind&prettyPrint=false",
+											"protocol": "https",
+											"host": [
+												"www",
+												"googleapis",
+												"com"
+											],
+											"path": [
+												"civicinfo",
+												"v2",
+												"elections"
+											],
+											"query": [
+												{
+													"key": "fields",
+													"value": "kind"
+												},
+												{
+													"key": "prettyPrint",
+													"value": "false"
+												}
+											]
+										},
+										"description": "Get a list of upcoming elections provided by https://www.votinginfoproject.org/"
+									},
+									"response": []
+								},
+								{
+									"name": "electionQuery - HappyPath APIKey Copy Copy Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "25b3a851-c1e8-434a-b544-7c7e478092a0",
+												"exec": [
+													"",
+													"pm.test(\"Body only contains kind with expected result\", function() {",
+													"    pm.response.to.have.body('{\"kind\":\"civicinfo#electionsQueryResponse\"}')",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "a041eba5-ae4a-4faf-9755-b3d7b4766dd3",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://www.googleapis.com/civicinfo/v2/elections?fields=kind&prettyPrint=false",
+											"protocol": "https",
+											"host": [
+												"www",
+												"googleapis",
+												"com"
+											],
+											"path": [
+												"civicinfo",
+												"v2",
+												"elections"
+											],
+											"query": [
+												{
+													"key": "fields",
+													"value": "kind"
+												},
+												{
+													"key": "prettyPrint",
+													"value": "false"
+												}
+											]
+										},
+										"description": "Get a list of upcoming elections provided by https://www.votinginfoproject.org/"
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "92c024c9-9ced-4e57-90e2-7915b8d3bc2c",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "54a72ffd-0038-4cb1-bc06-46110e417b11",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										]
+									}
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "unhappy-params",
+							"item": [
+								{
+									"name": "electionQuery - HappyPath APIKey Copy Copy Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "25b3a851-c1e8-434a-b544-7c7e478092a0",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"const error = pm.response.json().error",
+													"",
+													"pm.test(\"Error Code is 400\", function() {",
+													"    pm.expect(error.code).to.eql(400)",
+													"});",
+													"",
+													"pm.test(\"Error  reason is invalidParameter\", function() {",
+													"   pm.expect(error.errors[0].reason).to.eql(\"invalidParameter\") ",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "041471e4-d7dc-4aee-a3ee-5793bad4fbaf",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://www.googleapis.com/civicinfo/v2/elections?fields={{$randomAlphaNumeric}}",
+											"protocol": "https",
+											"host": [
+												"www",
+												"googleapis",
+												"com"
+											],
+											"path": [
+												"civicinfo",
+												"v2",
+												"elections"
+											],
+											"query": [
+												{
+													"key": "fields",
+													"value": "{{$randomAlphaNumeric}}"
+												}
+											]
+										},
+										"description": "Get a list of upcoming elections provided by https://www.votinginfoproject.org/"
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "43b571f5-c606-4410-9172-aa3b541f4545",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "8d47f4aa-6b66-41f5-9fd4-b9b21161e1d5",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"auth": {
+						"type": "apikey",
+						"apikey": [
+							{
+								"key": "value",
+								"value": "{{API_KEY}}",
+								"type": "string"
+							},
+							{
+								"key": "key",
+								"value": "key",
+								"type": "string"
+							},
+							{
+								"key": "in",
+								"value": "query",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1a3d97ba-e289-4627-8dc9-1a20a8003c51",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8f335f7-af24-4b7f-8ada-cad11a7fea5b",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8b12e60a-582a-4dd8-89ef-adf648ddce39",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e64ec55b-d069-41aa-b36c-79b27f23890d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Content-Type header is application/json\", function() {",
+							"    pm.expect(pm.response.headers.get('content-type'))",
+							"        .to.eql('application/json; charset=UTF-8');",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
