@@ -1,0 +1,11 @@
+version: "3"
+services:
+  newman_runner:
+    image: postman/newman:alpine
+    environment:
+      - API_KEY
+    volumes:
+      - ./postman:/etc/newman
+    command:
+      run /etc/newman/Google_Civic_Information_API.postman_collection.json
+      --env-var API_KEY=${API_KEY}
