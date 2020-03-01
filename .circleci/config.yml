@@ -18,4 +18,6 @@ workflows:
       - run-newman-collection
   checkout-build-test:
     jobs:
-      - gradle/test
+      - gradle/test:
+          reports_path: build/reports
+          test_results_path: build/test-results
