@@ -6,4 +6,5 @@ import reactor.core.publisher.Mono;
 public interface ElectionQueryClient {
 
   Mono<ElectionsDto> elections();
+
 }

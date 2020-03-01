@@ -1,13 +1,17 @@
 package flsh.civic.info.client.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Value;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Value
+@Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ElectionDto {
-  private final Long id;
-  private final String name;
-  private final String electionDay;
-  private final String ocdDivisionId;
+  private Long id;
+  private String name;
+  private String electionDay;
+  private String ocdDivisionId;
 }

@@ -1,12 +1,16 @@
 package flsh.civic.info.client.dto;
 
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Value;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Value
+@Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ElectionsDto {
-  private final String kind;
-  private final List<ElectionDto> elections;
+  private String kind;
+  private List<ElectionDto> elections;
 }

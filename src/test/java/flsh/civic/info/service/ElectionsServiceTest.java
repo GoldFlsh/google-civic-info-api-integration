@@ -31,6 +31,7 @@ class ElectionsServiceTest {
   @Test
   void testElectionServiceReturnsTransformedClientResponse() {
     final Flux<Election> elections = electionsService.getElections();
-    assertEquals(1, elections.count().block());
+    assertEquals(elections.blockFirst(),
+        new Election("name", "election-day", "ocd-division-id"));
   }
 }

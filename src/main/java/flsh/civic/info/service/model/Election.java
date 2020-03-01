@@ -3,9 +3,11 @@ package flsh.civic.info.service.model;
 import flsh.civic.info.client.dto.ElectionDto;
 import io.leangen.graphql.annotations.types.GraphQLType;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @GraphQLType
+@RequiredArgsConstructor
 public class Election {
 
   private final String name;
