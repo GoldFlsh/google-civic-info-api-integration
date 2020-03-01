@@ -1,8 +1,21 @@
 version: 2.1
+orbs:
+  newman: postman/newman@1.0.0
+
 jobs:
-  build:
-    docker:
-      - image: circleci/node:4.8.2 # the primary container, where your job's commands are run
+  checkout:
     steps:
-      - checkout # check out the code in the project directory
-      - run: echo "hello world" # run the `echo` command
+      - checkout
+  run-newman-collection:
+    executor: newman/postman-newman-docker
+    steps:
+      - checkout
+      - newman/newman-run:
+          collection: ./postman/Google_Civic_Information_API.postman_collection.json
+          environment: ./postman/credentials.postman_environment.json
+          additional-options: --env-var API_KEY=${API_KEY_CI}
+
+workflow:
+  run_all_tests:
+    jobs:
+      - run-newman-collection
