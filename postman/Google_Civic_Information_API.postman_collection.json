@@ -123,7 +123,7 @@
 											"response": []
 										},
 										{
-											"name": "no Accept  Header works fine",
+											"name": "missing accept header",
 											"event": [
 												{
 													"listen": "test",
@@ -185,71 +185,7 @@
 									"_postman_isSubFolder": true
 								},
 								{
-									"name": "electionQuery - HappyPath APIKey Copy Copy",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "25b3a851-c1e8-434a-b544-7c7e478092a0",
-												"exec": [
-													"",
-													"pm.test(\"Body only contains kind with expected result\", function() {",
-													"    pm.response.to.have.body('{\"kind\":\"civicinfo#electionsQueryResponse\"}')",
-													"});",
-													""
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"id": "a041eba5-ae4a-4faf-9755-b3d7b4766dd3",
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json"
-											}
-										],
-										"url": {
-											"raw": "https://www.googleapis.com/civicinfo/v2/elections?fields=kind&prettyPrint=false",
-											"protocol": "https",
-											"host": [
-												"www",
-												"googleapis",
-												"com"
-											],
-											"path": [
-												"civicinfo",
-												"v2",
-												"elections"
-											],
-											"query": [
-												{
-													"key": "fields",
-													"value": "kind"
-												},
-												{
-													"key": "prettyPrint",
-													"value": "false"
-												}
-											]
-										},
-										"description": "Get a list of upcoming elections provided by https://www.votinginfoproject.org/"
-									},
-									"response": []
-								},
-								{
-									"name": "electionQuery - HappyPath APIKey Copy Copy Copy",
+									"name": "filter fields only kind",
 									"event": [
 										{
 											"listen": "test",
@@ -344,7 +280,7 @@
 							"name": "unhappy-params",
 							"item": [
 								{
-									"name": "electionQuery - HappyPath APIKey Copy Copy Copy",
+									"name": "filter fields that don't exist",
 									"event": [
 										{
 											"listen": "test",
