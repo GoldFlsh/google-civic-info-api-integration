@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   newman: postman/newman@0.0.2
+  gradle: circleci/gradle@2.0.0
 
 jobs:
   run-newman-collection:
@@ -11,8 +12,10 @@ jobs:
           collection: ./postman/Google_Civic_Information_API.postman_collection.json
           environment: ./postman/credentials.postman_environment.json
           additional-options: --env-var API_KEY=${API_KEY_CI}
-
 workflows:
   run_all_tests:
     jobs:
       - run-newman-collection
+  checkout-build-test:
+    jobs:
+      - gradle/test
