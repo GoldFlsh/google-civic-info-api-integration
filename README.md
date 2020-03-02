@@ -59,13 +59,11 @@ However, if interested, newer versions of Postman can be used to query GraphQL.
 Manually start the application locally through either of the two following commands
 
 ```bash
-#Remove the {} and put your api-key after the '=' 
 export API_KEY={your api-key here}
 ./gradlew bootRun
 ```
 or 
 ```bash
-#Remove the {} and put your api-key after the '=' 
 export API_KEY={your api-key here}
 docker-compose up graphql-api-spr-boot
 ```
@@ -88,9 +86,8 @@ I've created a script and docker-compose file that runs through all of the test 
 Tests 1, 2, and 4 are mostly there to demonstrate the infrastructure around automation 
 and the number of tests are limited.
 
-To run the full CI please run -  
+To run the full CI "pipeline" please run -  
 ```bash
-# You will be prompted for API_KEY if it's not in the environment
 export API_KEY={your api-key here}
 ./localci.sh
 ```

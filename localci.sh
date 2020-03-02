@@ -1,16 +1,23 @@
 #!/bin/bash
 
+RED='\033[0;31m'
+NO_COLOR='\033[0m'
+BLUE='\033[0;36m'
 if [ -z "$API_KEY" ]; then
-  echo "Missing API_KEY!!!!"
-  echo "Please copy and paste API Key (input will be hidden)"
-  read -s API_KEY_VAR
-else
-  API_KEY_VAR=${API_KEY}
+  echo -e "${RED}Missing API_KEY!!!!"
+  echo -e "Please run: ${BLUE}export API_KEY=''${NO_COLOR}"
+  exit
 fi
 
 ./gradlew clean build integrationTest && { {
     docker-compose up -d --build graphql-api-spr-boot &&
-    docker-compose up google_api_newman graphql_newman
-  } || docker-compose down
+    docker-compose run google_api_newman &&
+    docker-compose run graphql_newman &&
+    docker-compose down
+  } || {
+    echo -e "${RED}************************************************************${NO_COLOR}"
+    echo -e "${RED}** Docker TEST FAILED!!! Scroll up to see postman results **${NO_COLOR}"
+    echo -e "${RED}************************************************************${NO_COLOR}"
+    docker-compose down
+  }
 }
-
