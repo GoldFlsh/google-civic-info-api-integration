@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/elections?key=MY_DUMMY_API_KEY"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8"
+    },
+    "body": "{\"kind\":\"civicinfo#electionsQueryResponse\",\"elections\":[{\"id\":\"2000\",\"name\":\"FAKE_TEST_ELECTION\",\"electionDay\":\"2021-06-06\",\"ocdDivisionId\":\"ocd-division\"}]}"
+  }
+}

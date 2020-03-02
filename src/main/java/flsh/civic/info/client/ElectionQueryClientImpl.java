@@ -13,11 +13,11 @@ import reactor.core.publisher.Mono;
 @Component
 public class ElectionQueryClientImpl implements ElectionQueryClient {
 
-  @Value("${API_KEY}")
+  @Value("${application.election.api.key}")
   private String apiKey;
 
-  //Cutting a corner in this case instead of adding this to an ext. configuration
-  private static final String GOOGLE_API_URI = "https://www.googleapis.com/civicinfo/v2/elections?key={API_KEY}";
+  @Value("${application.election.uri}")
+  private String electionQueryUri;
 
   final WebClient client;
 
@@ -29,7 +29,7 @@ public class ElectionQueryClientImpl implements ElectionQueryClient {
   @Override
   public Mono<ElectionsDto> elections() {
     return client.get().
-        uri(GOOGLE_API_URI, apiKey)
+        uri(electionQueryUri, apiKey)
         .retrieve()
         .bodyToMono(ElectionsDto.class);
   }
