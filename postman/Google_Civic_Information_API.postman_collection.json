@@ -158,7 +158,6 @@
 											"response": []
 										}
 									],
-									"description": "const response = pm.response.json()\n\npm.test(\"kind field contains expected API type info\", function() {\n   pm.expect(response.kind).to.eql(\"civicinfo#electionsQueryResponse\")\n});\n\nconst testElection = pm.response.json().elections[0];\n\npm.test(\"Test Election Data contains expected Id 2000\", function() {\n   pm.expect(testElection.id).to.eql(\"2000\")\n});\n\npm.test(\"Test Election Data contains expected Id 2000\", function() {\n   pm.expect(testElection.id).to.eql(\"2000\")\n});\n\npm.test(\"Test Election Data contains expected name 'VIP Test Election'\", function() {\n   pm.expect(testElection.name).to.eql(\"VIP Test Election\")\n});\n\n\npm.test(\"Test Election Data contains expected name 'VIP Test Election'\", function() {\n   pm.expect(testElection.name).to.eql(\"VIP Test Election\")\n});\n\n//Not testing for exact match as it's not clear if this could be updated in the future\n//testing for date format ensures it's some date but doesn't require manual updates to\n//fix a failing test if the date is updated in the database later.\npm.test(\"Test Election Data contains electionDay as date format\", function() {\n   pm.expect(testElection.electionDay).to.match(/^\\d{4}-\\d{2}-\\d{2}/)\n});\n\npm.test(\"Test ocdDivisionId is country:us\", function() {\n  pm.expect(testElection.ocdDivisionId).contains(\"country:us\")\n});",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -176,7 +175,41 @@
 												"id": "cd8551b9-da66-4af3-91e5-9e934a94fd11",
 												"type": "text/javascript",
 												"exec": [
-													""
+													"const response = pm.response.json()",
+													"",
+													"pm.test(\"kind field contains expected API type info\", function() {",
+													"   pm.expect(response.kind).to.eql(\"civicinfo#electionsQueryResponse\")",
+													"});",
+													"",
+													"const testElection = pm.response.json().elections[0];",
+													"",
+													"pm.test(\"Test Election Data contains expected Id 2000\", function() {",
+													"   pm.expect(testElection.id).to.eql(\"2000\")",
+													"});",
+													"",
+													"pm.test(\"Test Election Data contains expected Id 2000\", function() {",
+													"   pm.expect(testElection.id).to.eql(\"2000\")",
+													"});",
+													"",
+													"pm.test(\"Test Election Data contains expected name 'VIP Test Election'\", function() {",
+													"   pm.expect(testElection.name).to.eql(\"VIP Test Election\")",
+													"});",
+													"",
+													"",
+													"pm.test(\"Test Election Data contains expected name 'VIP Test Election'\", function() {",
+													"   pm.expect(testElection.name).to.eql(\"VIP Test Election\")",
+													"});",
+													"",
+													"//Not testing for exact match as it's not clear if this could be updated in the future",
+													"//testing for date format ensures it's some date but doesn't require manual updates to",
+													"//fix a failing test if the date is updated in the database later.",
+													"pm.test(\"Test Election Data contains electionDay as date format\", function() {",
+													"   pm.expect(testElection.electionDay).to.match(/^\\d{4}-\\d{2}-\\d{2}/)",
+													"});",
+													"",
+													"pm.test(\"Test ocdDivisionId is country:us\", function() {",
+													"  pm.expect(testElection.ocdDivisionId).contains(\"country:us\")",
+													"});"
 												]
 											}
 										}
