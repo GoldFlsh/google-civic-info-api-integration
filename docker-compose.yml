@@ -18,7 +18,6 @@ services:
     command:
       run /etc/newman/Civic_Information_GraphQL.postman_collection.json
       -e /etc/newman/docker-compose-local.postman_environment.json
-      --env-var API_KEY=${API_KEY}
 
   graphql-api-spr-boot:
     build:
@@ -28,4 +27,5 @@ services:
       - API_KEY
     ports:
       - 8080:8080
+
 

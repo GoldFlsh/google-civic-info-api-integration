@@ -7,6 +7,41 @@
 	"item": [
 		{
 			"name": "GraphQL Civic Info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4cd8e2eb-499f-4cff-8d43-8a9cb87ba45c",
+						"exec": [
+							"pm.test(\"Content-Type header is application/json\", function() {",
+							"    pm.expect(pm.response.headers.get('content-type'))",
+							"        .to.eql('application/json;charset=UTF-8');",
+							"});",
+							"",
+							"",
+							"const response = pm.response.json()",
+							"",
+							"const testElection = pm.response.json().data.elections[0];",
+							"",
+							"pm.test(\"Test Election Data contains expected name 'VIP Test Election'\", function() {",
+							"   pm.expect(testElection.name).to.eql(\"VIP Test Election\")",
+							"});",
+							"",
+							"//Not testing for exact match as it's not clear if this could be updated in the future",
+							"//testing for date format ensures it's some date but doesn't require manual updates to",
+							"//fix a failing test if the date is updated in the database later.",
+							"pm.test(\"Test Election Data contains electionDay as date format\", function() {",
+							"   pm.expect(testElection.electionDay).to.match(/^\\d{4}-\\d{2}-\\d{2}/)",
+							"});",
+							"",
+							"pm.test(\"Test ocdDivision is country:us\", function() {",
+							"  pm.expect(testElection.ocdDivision).contains(\"country:us\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -18,12 +53,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/graphql",
-					"protocol": "http",
+					"raw": "{{application-host}}/graphql",
 					"host": [
-						"localhost"
+						"{{application-host}}"
 					],
-					"port": "8080",
 					"path": [
 						"graphql"
 					]

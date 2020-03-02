@@ -94,6 +94,3 @@ To run the full CI please run -
 export API_KEY={your api-key here}
 ./localci.sh
 ```
-
-
-
