@@ -8,12 +8,9 @@ else
   API_KEY_VAR=${API_KEY}
 fi
 
-set -e
+./gradlew clean build integrationTest && { {
+    docker-compose up -d --build graphql-api-spr-boot &&
+    docker-compose up google_api_newman graphql_newman
+  } || docker-compose down
+}
 
-./gradlew clean build integrationTest
-
-docker-compose up -d --build graphql-api-spr-boot
-
-docker-compose up google_api_newman graphql_newman
-
-docker-compose down graphql-api-spr-boot
