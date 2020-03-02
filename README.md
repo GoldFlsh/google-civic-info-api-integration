@@ -29,8 +29,7 @@ and for exploratory testing, you can install [postman](https://www.postman.com/d
 
 ###### CircleCI
 There is a CircleCI pipeline configuration in [.circleci/config.yml](.circleci/config.yml). 
-If you want to view that pipeline in the Circle CI Application you can go   
-[here](https://circleci.com/gh/GoldFlsh/google-civic-info-api-integration).
+If you want to view that pipeline in the Circle CI Application you can go [here](https://circleci.com/gh/GoldFlsh/google-civic-info-api-integration).
 
 The pipeline was generated just for fun as I've been wanting to learn Circle CI the past few months. 
 There was some interest in using the Circle CI CLI to create the local automation 
@@ -50,7 +49,7 @@ API_KEY environment variable to your own API Key.
 
 ### Developing with the API
 I've developed a simple GraphQL layer on top of the Google Civic Information API which can be queried
-through Postman. I chose to keep it simple and expose a trivial transformation of the underlying data
+through Postman. I chose to keep it simple and expose a trivial transformation of the underlying data.
 The emphasis was to demonstrate a slice of local testing at the unit and functional level.
 
 These tests are run as part of the automation at a later stage.
