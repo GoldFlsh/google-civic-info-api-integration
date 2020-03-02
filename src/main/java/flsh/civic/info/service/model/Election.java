@@ -2,17 +2,17 @@ package flsh.civic.info.service.model;
 
 import flsh.civic.info.client.dto.ElectionDto;
 import io.leangen.graphql.annotations.types.GraphQLType;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 
-@Data
+@Value
 @GraphQLType
 @RequiredArgsConstructor
 public class Election {
 
-  private final String name;
-  private final String electionDay;
-  private final String ocdDivision;
+  String name;
+  String electionDay;
+  String ocdDivision;
 
   public Election(ElectionDto electionDto) {
     this.name = electionDto.getName();
