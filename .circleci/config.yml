@@ -10,7 +10,7 @@ jobs:
       - checkout
       - newman/newman-run:
           collection: ./postman/Google_Civic_Information_API.postman_collection.json
-          environment: ./postman/credentials.postman_environment.json
+          environment: ./postman/docker-compose-local.postman_environment.json
           additional-options: --env-var API_KEY=${API_KEY_CI}
 workflows:
   run_all_tests:
