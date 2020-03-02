@@ -1,6 +1,6 @@
 version: "3"
 services:
-  newman_runner:
+  google_api_newman:
     image: postman/newman:alpine
     environment:
       - API_KEY
@@ -9,3 +9,12 @@ services:
     command:
       run /etc/newman/Google_Civic_Information_API.postman_collection.json
       --env-var API_KEY=${API_KEY}
+  graphql-api-spr-boot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - API_KEY
+    ports:
+      - 8080:8080
+
