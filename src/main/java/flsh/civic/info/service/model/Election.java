@@ -14,9 +14,7 @@ public class Election {
   String electionDay;
   String ocdDivision;
 
-  public Election(ElectionDto electionDto) {
-    this.name = electionDto.getName();
-    this.electionDay = electionDto.getElectionDay();
-    this.ocdDivision = electionDto.getOcdDivisionId();
+  public static Election fromElectionDto(ElectionDto electionDto) {
+    return new Election(electionDto.getName(), electionDto.getElectionDay(), electionDto.getOcdDivisionId());
   }
 }

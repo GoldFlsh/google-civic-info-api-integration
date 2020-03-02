@@ -22,6 +22,6 @@ public class ElectionsService {
   public Flux<Election> getElections() {
     return client.elections()
         .flatMapIterable(ElectionsDto::getElections)
-        .map(Election::new);
+        .map(Election::fromElectionDto);
   }
 }
